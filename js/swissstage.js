@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     let SHEET_TITLE = 'Swiss Stage';
-    let SHEET_RANGE = 'A2:L17';
+    let SHEET_RANGE = 'A2:L50';
     let SHEET_ID = '1s2Lyk37v-hZcg7-_ag8S1Jq3uaeRR8u-oG0zviSc26E';
     let FULL_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${SHEET_TITLE}&range=${SHEET_RANGE}`;
 
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then((res) => res.text())
         .then((rep) => {
             let jsonData = JSON.parse(rep.substr(47).slice(0, -2));
-            const container = document.querySelector('.w0-l0');
+            let rowData = jsonData.table.rows.slice(35, 44); // Slice to get only rows A37:A57
             let valueA = [];
             let valueB = [];
             let valueC = [];
@@ -55,10 +55,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Loop to create each matchup
             for (let i = 0; i < 16; i += 2) {
+                let mymodelid = document.createElement('div');
+                mymodelid.id = "myModal"+i;
+                mymodelid.classList.add('modal'); 
+                let modal_content = document.createElement('div');
+                modal_content.classList.add('modal-content');
+                modal_content.id = 'matchid'+(i / 2 + 1);
+                let close_span = this.createElement('span');
+                close_span.classList.add('close');
+                close_span.addEventListener('click', function() {
+                    closeModal(i);
+                });
+                let map_pick_label = document.createElement('p');
+                map_pick_label.classList.add("map_pick_label");
+                map_pick_label.innerHTML = 'Map pick';
+                let img_pick = document.createElement('img');
+                img_pick.classList.add("map_pick");
+                img_pick.src = "image/"+rowData[i/2+1].c[0].v + ".jpg";
+                close_span.innerHTML = '&times;';
+                modal_content.appendChild(close_span);
+                modal_content.appendChild(map_pick_label)
+                modal_content.appendChild(img_pick);
+                mymodelid.appendChild(modal_content);
                 const container = document.querySelector('.w0-l0');
                 // Create matchups container
+                link_info_match = document.createElement('a');
+                link_info_match.classList.add('link-match-info');
+                link_info_match.onclick = function() { openModal(i); };
                 const matchupsContainer = document.createElement('div');
                 matchupsContainer.classList.add('matchups');
+                matchupsContainer.appendChild(mymodelid);
                 // Create matchup div
                 const matchupDiv = document.createElement('div');
                 matchupDiv.classList.add('matchup');
@@ -117,7 +143,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Append team 2 div to matchup div
                 matchupDiv.appendChild(team2Div);
                 // Append matchup div to matchups container
-                matchupsContainer.appendChild(matchupDiv);
+                link_info_match.appendChild(matchupDiv);
+                matchupsContainer.appendChild(link_info_match);
                 // Append matchups container to the container with class w0-l0
                 container.appendChild(matchupsContainer);
             }
@@ -758,3 +785,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 });
+function openModal(modalNum) {
+    var modal = document.getElementById("myModal" + modalNum);
+    modal.style.display = "block";
+  }
+  
+  // Function to close the modal
+  function closeModal(modalNum) {
+    var modal = document.getElementById("myModal" + modalNum);
+    modal.style.display = "none";
+  }
+  
+  // Close the modal when clicking outside of it
+  window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+      event.target.style.display = "none";
+    }
+  }
