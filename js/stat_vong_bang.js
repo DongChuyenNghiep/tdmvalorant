@@ -38,11 +38,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         };
 
         const sheets = [
-            { title: 'Bảng A', range: 'B2:L201', targetLeft: 'team-left-A-', targetRight: 'team-right-A-' },
+            { title: 'Match', range: 'A2:M201', targetLeft: 'team-left-A-', targetRight: 'team-right-A-' },
     
         ];
 
-        const SHEET_ID = '1QggU0zafsVUpV7f-YDYHg5jAfxKAMWZgk57JZSvCVuU';
+        const SHEET_ID = '1s2Lyk37v-hZcg7-_ag8S1Jq3uaeRR8u-oG0zviSc26E';
         const fetchPromises = sheets.map(async (sheet) => {
             const fullURL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${sheet.title}&range=${sheet.range}`;
             
