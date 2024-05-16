@@ -218,7 +218,7 @@ div.table_rank_A {
     transition: max-height 0.3s ease-in-out;
   }
   .wordBox1 table {
-    width: 120%;
+    width: 150%;
 }
 .wordBox1 .team-left table td:nth-child(1), .wordBox1 .team-right table td:nth-child(1) {
     left: 0;
@@ -469,6 +469,9 @@ h3 {
     left: 0%;
     position: sticky;
 
+}
+ div.first-col {
+    width: 280px ;
 }
 /* Handle on hover */
 
@@ -757,7 +760,7 @@ h3 {
 
     }
     .wordBox1 table{
-        width: 110%;
+        width: 150%;
     }
     table.my-table {
         width: 90%;
