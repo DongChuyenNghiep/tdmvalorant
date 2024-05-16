@@ -1,19 +1,32 @@
 document.addEventListener('DOMContentLoaded', function(){
-  let SHEET_TITLE_QUALIFIER = 'Fixture';
-  let SHEET_RANGE_A = 'A2:U11';
-  let SHEET_ID = '1QggU0zafsVUpV7f-YDYHg5jAfxKAMWZgk57JZSvCVuU';
+  let SHEET_TITLE_QUALIFIER = 'Sheet3';
+  let SHEET_RANGE_A = 'A1:U37';
+  let SHEET_ID = '1s2Lyk37v-hZcg7-_ag8S1Jq3uaeRR8u-oG0zviSc26E';
   let FULL_URL_A_1 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${SHEET_TITLE_QUALIFIER}&range=${SHEET_RANGE_A}`;
   
   fetch(FULL_URL_A_1)
     .then((res) => res.text())
     .then((rep) => {
       let data = JSON.parse(rep.substr(47).slice(0, -2));
-      
-  
-      for (let i = 0; i < data.table.rows.length; i++) {
-        let dataBody = document.getElementById('matchid'+(i+1));
-        let rowData = data.table.rows[i].c;
+      function getGroup(i) {
+        if (i < 8) {
+          return 'A';
+        } else if (i < 16) {
+          return 'B';
+        } else if (i < 24) {
+          return 'C';
+        } else if (i < 30) { // Change this condition to cover 25 to 32 inclusive
+          return 'D';
+        } else {
+          return 'E';
+        }
+      }
 
+      for (let i = 0; i < data.table.rows.length; i++) {
+        let group = getGroup(i);
+        let dataBody = document.getElementById('matchid'+group+(i+1));
+        let rowData = data.table.rows[i].c;
+        console.log('matchid'+group+(i+1));
         
         let link = document.createElement('div');
         link.classList.add('showWords1')
@@ -102,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function(){
         img2.classList.add('team-logo');
         let imglogo_right = rowData[7].v;
         const logoteam_right = imglogo_right.match(regex);
-            const fileId_right = logoteam_right[1];
+        const fileId_right = logoteam_right[1];
         img2.src = `https://drive.google.com/thumbnail?id=${fileId_right}`; // Set the image source from the data
         img2.alt = rowData[6].v + ' Logo'; // Set the alt text based on the team name
         teamDiv2.appendChild(img2);
@@ -302,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function(){
         // Append the row div to the dataBody
         dataBody.appendChild(link);
       }
-      show();
+      
     
     });
   });

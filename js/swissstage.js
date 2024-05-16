@@ -54,635 +54,116 @@ document.addEventListener('DOMContentLoaded', function () {
             matchupsContainer.classList.add('matchups');
 
             // Loop to create each matchup
-            for (let i = 0; i < 16; i += 2) {
-                let mymodelid = document.createElement('div');
-                mymodelid.id = "myModal"+i;
-                mymodelid.classList.add('modal'); 
-                let modal_content = document.createElement('div');
+            function createTeamDiv(logoSrc, score) {
+                const teamDiv = document.createElement('div');
+                teamDiv.classList.add('team');
+            
+                const logoTeamDiv = document.createElement('div');
+                logoTeamDiv.classList.add('logo-team');
+                const logoImg = document.createElement('img');
+                logoImg.src = logoSrc;
+                logoImg.alt = '';
+                logoTeamDiv.appendChild(logoImg);
+                teamDiv.appendChild(logoTeamDiv);
+            
+                const scoreDiv = document.createElement('div');
+                scoreDiv.classList.add('score');
+                const scoreP = document.createElement('p');
+                scoreP.textContent = score;
+                scoreDiv.appendChild(scoreP);
+                teamDiv.appendChild(scoreDiv);
+            
+                return teamDiv;
+            }
+            
+            function createModal(i, rowData,group,amountplus) {
+                const mymodelid = document.createElement('div');
+                mymodelid.id = "myModal"+group + i;
+                mymodelid.classList.add('modal');
+            
+                const modal_content = document.createElement('div');
                 modal_content.classList.add('modal-content');
-                modal_content.id = 'matchid'+(i / 2 + 1);
-                let close_span = this.createElement('span');
+                modal_content.id = 'matchid'+group + (i / 2 + 1 + amountplus);
+            
+                const close_span = document.createElement('span');
                 close_span.classList.add('close');
-                close_span.addEventListener('click', function() {
-                    closeModal(i);
-                });
-                let map_pick_label = document.createElement('p');
+                close_span.innerHTML = '&times;';
+                close_span.addEventListener('click', function () { closeModal(i,group); });
+            
+                const map_pick_label = document.createElement('p');
                 map_pick_label.classList.add("map_pick_label");
                 map_pick_label.innerHTML = 'Map pick';
-                let img_pick = document.createElement('img');
+            
+                const img_pick = document.createElement('img');
                 img_pick.classList.add("map_pick");
-                img_pick.src = "image/"+rowData[i/2+1].c[0].v + ".jpg";
-                close_span.innerHTML = '&times;';
+                img_pick.src = "image/" + rowData[i / 2 + 1].c[0].v + ".jpg";
+            
                 modal_content.appendChild(close_span);
-                modal_content.appendChild(map_pick_label)
+                modal_content.appendChild(map_pick_label);
                 modal_content.appendChild(img_pick);
                 mymodelid.appendChild(modal_content);
-                const container = document.querySelector('.w0-l0');
-                // Create matchups container
-                link_info_match = document.createElement('a');
-                link_info_match.classList.add('link-match-info');
-                link_info_match.onclick = function() { openModal(i); };
+            
+                return mymodelid;
+            }
+            
+            function createMatchup(i, valueA, valueB, rowData, containerClass,group,amountplus) {
+                const container = document.querySelector(containerClass);
                 const matchupsContainer = document.createElement('div');
                 matchupsContainer.classList.add('matchups');
-                matchupsContainer.appendChild(mymodelid);
-                // Create matchup div
+                matchupsContainer.appendChild(createModal(i, rowData,group,amountplus));
+            
+                const link_info_match = document.createElement('a');
+                link_info_match.classList.add('link-match-info');
+                link_info_match.onclick = function () { openModal(i,group); };
+            
                 const matchupDiv = document.createElement('div');
                 matchupDiv.classList.add('matchup');
-
-                // Create first team div
-                const team1Div = document.createElement('div');
-                team1Div.classList.add('team');
-
-                // Create logo-team div for team 1
-                const logoTeam1Div = document.createElement('div');
-                logoTeam1Div.classList.add('logo-team');
-                const logoTeam1Img = document.createElement('img');
+            
                 const regex = /\/d\/(.+?)\/view/;
-                let link_drive_image = valueA[i]; // Use even value cell
-                const logoteamA = link_drive_image.match(regex);
-                const fileIdA = logoteamA[1];
-                logoTeam1Img.src = `https://drive.google.com/thumbnail?id=${fileIdA}`;
-                logoTeam1Img.alt = '';
-                logoTeam1Div.appendChild(logoTeam1Img);
-                team1Div.appendChild(logoTeam1Div);
-
-                // Create score div for team 1
-                const score1Div = document.createElement('div');
-                score1Div.classList.add('score');
-                const score1P = document.createElement('p');
-                score1P.textContent = valueB[i]; // Set score for team 1
-                score1Div.appendChild(score1P);
-                team1Div.appendChild(score1Div);
-
-                // Append team 1 div to matchup div
+            
+                let link_drive_image_A = valueA[i];
+                const fileIdA = link_drive_image_A.match(regex)[1];
+                const logoSrcA = `https://drive.google.com/thumbnail?id=${fileIdA}`;
+                const team1Div = createTeamDiv(logoSrcA, valueB[i]);
                 matchupDiv.appendChild(team1Div);
-
-                // Create second team div
-                const team2Div = document.createElement('div');
-                team2Div.classList.add('team');
-
-                // Create logo-team div for team 2
-                const logoTeam2Div = document.createElement('div');
-                logoTeam2Div.classList.add('logo-team');
-                const logoTeam2Img = document.createElement('img');
-                const link_drive_image_B = valueA[i + 1];
-                const logoteamB = link_drive_image_B.match(regex);
-                const fileIdB = logoteamB[1];
-                logoTeam2Img.src = `https://drive.google.com/thumbnail?id=${fileIdB}`;
-                logoTeam2Img.alt = '';
-                logoTeam2Div.appendChild(logoTeam2Img);
-                team2Div.appendChild(logoTeam2Div);
-
-                // Create score div for team 2
-                const score2Div = document.createElement('div');
-                score2Div.classList.add('score');
-                const score2P = document.createElement('p');
-                score2P.textContent = valueB[i + 1]; // Set score for team 2
-                score2Div.appendChild(score2P);
-                team2Div.appendChild(score2Div);
-                // Append team 2 div to matchup div
+            
+                let link_drive_image_B = valueA[i + 1];
+                const fileIdB = link_drive_image_B.match(regex)[1];
+                const logoSrcB = `https://drive.google.com/thumbnail?id=${fileIdB}`;
+                const team2Div = createTeamDiv(logoSrcB, valueB[i + 1]);
                 matchupDiv.appendChild(team2Div);
-                // Append matchup div to matchups container
+            
                 link_info_match.appendChild(matchupDiv);
                 matchupsContainer.appendChild(link_info_match);
-                // Append matchups container to the container with class w0-l0
                 container.appendChild(matchupsContainer);
+            }
+            
+            for (let i = 0; i < 16; i += 2) {
+                createMatchup(i, valueA, valueB, rowData, '.w0-l0',"A",0);
             }
             for (let i = 0; i < 8; i += 2) {
-                const container = document.querySelector('.w1-l0');
-                // Create matchups container
-                const matchupsContainer = document.createElement('div');
-                matchupsContainer.classList.add('matchups');
-                // Create matchup div
-                const matchupDiv = document.createElement('div');
-                matchupDiv.classList.add('matchup');
-
-                // Create first team div
-                const team1Div = document.createElement('div');
-                team1Div.classList.add('team');
-
-                // Create logo-team div for team 1
-                const logoTeam1Div = document.createElement('div');
-                logoTeam1Div.classList.add('logo-team');
-                const logoTeam1Img = document.createElement('img');
-                const regex = /\/d\/(.+?)\/view/;
-                let link_drive_image = valueC[i]; // Use even value cell
-                const logoteamA = link_drive_image.match(regex);
-                const fileIdA = logoteamA[1];
-                logoTeam1Img.src = `https://drive.google.com/thumbnail?id=${fileIdA}`;
-                logoTeam1Img.alt = '';
-                logoTeam1Div.appendChild(logoTeam1Img);
-                team1Div.appendChild(logoTeam1Div);
-
-                // Create score div for team 1
-                const score1Div = document.createElement('div');
-                score1Div.classList.add('score');
-                const score1P = document.createElement('p');
-                score1P.textContent = valueD[i]; // Set score for team 1
-                score1Div.appendChild(score1P);
-                team1Div.appendChild(score1Div);
-
-                // Append team 1 div to matchup div
-                matchupDiv.appendChild(team1Div);
-
-                // Create second team div
-                const team2Div = document.createElement('div');
-                team2Div.classList.add('team');
-
-                // Create logo-team div for team 2
-                const logoTeam2Div = document.createElement('div');
-                logoTeam2Div.classList.add('logo-team');
-                const logoTeam2Img = document.createElement('img');
-                const link_drive_image_B = valueC[i + 1];
-                const logoteamB = link_drive_image_B.match(regex);
-                const fileIdB = logoteamB[1];
-                logoTeam2Img.src = `https://drive.google.com/thumbnail?id=${fileIdB}`;
-                logoTeam2Img.alt = '';
-                logoTeam2Div.appendChild(logoTeam2Img);
-                team2Div.appendChild(logoTeam2Div);
-
-                // Create score div for team 2
-                const score2Div = document.createElement('div');
-                score2Div.classList.add('score');
-                const score2P = document.createElement('p');
-                score2P.textContent = valueD[i + 1]; // Set score for team 2
-                score2Div.appendChild(score2P);
-                team2Div.appendChild(score2Div);
-                // Append team 2 div to matchup div
-                matchupDiv.appendChild(team2Div);
-                // Append matchup div to matchups container
-                matchupsContainer.appendChild(matchupDiv);
-                // Append matchups container to the container with class w0-l0
-                container.appendChild(matchupsContainer);
+                createMatchup(i, valueC, valueD, rowData, '.w1-l0',"B",8);
             }
             for (let i = 8; i < 16; i += 2) {
-                const container = document.querySelector('.w0-l1');
-                // Create matchups container
-                const matchupsContainer = document.createElement('div');
-                matchupsContainer.classList.add('matchups');
-                // Create matchup div
-                const matchupDiv = document.createElement('div');
-                matchupDiv.classList.add('matchup');
-
-                // Create first team div
-                const team1Div = document.createElement('div');
-                team1Div.classList.add('team');
-
-                // Create logo-team div for team 1
-                const logoTeam1Div = document.createElement('div');
-                logoTeam1Div.classList.add('logo-team');
-                const logoTeam1Img = document.createElement('img');
-                const regex = /\/d\/(.+?)\/view/;
-                let link_drive_image = valueC[i]; // Use even value cell
-                const logoteamA = link_drive_image.match(regex);
-                const fileIdA = logoteamA[1];
-                logoTeam1Img.src = `https://drive.google.com/thumbnail?id=${fileIdA}`;
-                logoTeam1Img.alt = '';
-                logoTeam1Div.appendChild(logoTeam1Img);
-                team1Div.appendChild(logoTeam1Div);
-
-                // Create score div for team 1
-                const score1Div = document.createElement('div');
-                score1Div.classList.add('score');
-                const score1P = document.createElement('p');
-                score1P.textContent = valueD[i]; // Set score for team 1
-                score1Div.appendChild(score1P);
-                team1Div.appendChild(score1Div);
-
-                // Append team 1 div to matchup div
-                matchupDiv.appendChild(team1Div);
-
-                // Create second team div
-                const team2Div = document.createElement('div');
-                team2Div.classList.add('team');
-
-                // Create logo-team div for team 2
-                const logoTeam2Div = document.createElement('div');
-                logoTeam2Div.classList.add('logo-team');
-                const logoTeam2Img = document.createElement('img');
-                const link_drive_image_B = valueC[i + 1];
-                const logoteamB = link_drive_image_B.match(regex);
-                const fileIdB = logoteamB[1];
-                logoTeam2Img.src = `https://drive.google.com/thumbnail?id=${fileIdB}`;
-                logoTeam2Img.alt = '';
-                logoTeam2Div.appendChild(logoTeam2Img);
-                team2Div.appendChild(logoTeam2Div);
-
-                // Create score div for team 2
-                const score2Div = document.createElement('div');
-                score2Div.classList.add('score');
-                const score2P = document.createElement('p');
-                score2P.textContent = valueD[i + 1]; // Set score for team 2
-                score2Div.appendChild(score2P);
-                team2Div.appendChild(score2Div);
-                // Append team 2 div to matchup div
-                matchupDiv.appendChild(team2Div);
-                // Append matchup div to matchups container
-                matchupsContainer.appendChild(matchupDiv);
-                // Append matchups container to the container with class w0-l0
-                container.appendChild(matchupsContainer);
+                createMatchup(i, valueC, valueD, rowData, '.w0-l1',"B",8);
             }
             for (let i = 0; i < 4; i += 2) {
-                const container = document.querySelector('.w2-l0');
-                // Create matchups container
-                const matchupsContainer = document.createElement('div');
-                matchupsContainer.classList.add('matchups');
-                // Create matchup div
-                const matchupDiv = document.createElement('div');
-                matchupDiv.classList.add('matchup');
-
-                // Create first team div
-                const team1Div = document.createElement('div');
-                team1Div.classList.add('team');
-
-                // Create logo-team div for team 1
-                const logoTeam1Div = document.createElement('div');
-                logoTeam1Div.classList.add('logo-team');
-                const logoTeam1Img = document.createElement('img');
-                const regex = /\/d\/(.+?)\/view/;
-                let link_drive_image = valueE[i]; // Use even value cell
-                const logoteamA = link_drive_image.match(regex);
-                const fileIdA = logoteamA[1];
-                logoTeam1Img.src = `https://drive.google.com/thumbnail?id=${fileIdA}`;
-                logoTeam1Img.alt = '';
-                logoTeam1Div.appendChild(logoTeam1Img);
-                team1Div.appendChild(logoTeam1Div);
-
-                // Create score div for team 1
-                const score1Div = document.createElement('div');
-                score1Div.classList.add('score');
-                const score1P = document.createElement('p');
-                score1P.textContent = valueF[i]; // Set score for team 1
-                score1Div.appendChild(score1P);
-                team1Div.appendChild(score1Div);
-
-                // Append team 1 div to matchup div
-                matchupDiv.appendChild(team1Div);
-
-                // Create second team div
-                const team2Div = document.createElement('div');
-                team2Div.classList.add('team');
-
-                // Create logo-team div for team 2
-                const logoTeam2Div = document.createElement('div');
-                logoTeam2Div.classList.add('logo-team');
-                const logoTeam2Img = document.createElement('img');
-                const link_drive_image_B = valueE[i + 1];
-                const logoteamB = link_drive_image_B.match(regex);
-                const fileIdB = logoteamB[1];
-                logoTeam2Img.src = `https://drive.google.com/thumbnail?id=${fileIdB}`;
-                logoTeam2Img.alt = '';
-                logoTeam2Div.appendChild(logoTeam2Img);
-                team2Div.appendChild(logoTeam2Div);
-
-                // Create score div for team 2
-                const score2Div = document.createElement('div');
-                score2Div.classList.add('score');
-                const score2P = document.createElement('p');
-                score2P.textContent = valueF[i + 1]; // Set score for team 2
-                score2Div.appendChild(score2P);
-                team2Div.appendChild(score2Div);
-                // Append team 2 div to matchup div
-                matchupDiv.appendChild(team2Div);
-                // Append matchup div to matchups container
-                matchupsContainer.appendChild(matchupDiv);
-                // Append matchups container to the container with class w0-l0
-                container.appendChild(matchupsContainer);
+                createMatchup(i, valueE, valueF, rowData, '.w2-l0',"C",16);
             }
             for (let i = 4; i < 12; i += 2) {
-                const container = document.querySelector('.w1-l1');
-                // Create matchups container
-                const matchupsContainer = document.createElement('div');
-                matchupsContainer.classList.add('matchups');
-                // Create matchup div
-                const matchupDiv = document.createElement('div');
-                matchupDiv.classList.add('matchup');
-
-                // Create first team div
-                const team1Div = document.createElement('div');
-                team1Div.classList.add('team');
-
-                // Create logo-team div for team 1
-                const logoTeam1Div = document.createElement('div');
-                logoTeam1Div.classList.add('logo-team');
-                const logoTeam1Img = document.createElement('img');
-                const regex = /\/d\/(.+?)\/view/;
-                let link_drive_image = valueE[i]; // Use even value cell
-                const logoteamA = link_drive_image.match(regex);
-                const fileIdA = logoteamA[1];
-                logoTeam1Img.src = `https://drive.google.com/thumbnail?id=${fileIdA}`;
-                logoTeam1Img.alt = '';
-                logoTeam1Div.appendChild(logoTeam1Img);
-                team1Div.appendChild(logoTeam1Div);
-
-                // Create score div for team 1
-                const score1Div = document.createElement('div');
-                score1Div.classList.add('score');
-                const score1P = document.createElement('p');
-                score1P.textContent = valueF[i]; // Set score for team 1
-                score1Div.appendChild(score1P);
-                team1Div.appendChild(score1Div);
-
-                // Append team 1 div to matchup div
-                matchupDiv.appendChild(team1Div);
-
-                // Create second team div
-                const team2Div = document.createElement('div');
-                team2Div.classList.add('team');
-
-                // Create logo-team div for team 2
-                const logoTeam2Div = document.createElement('div');
-                logoTeam2Div.classList.add('logo-team');
-                const logoTeam2Img = document.createElement('img');
-                const link_drive_image_B = valueE[i + 1];
-                const logoteamB = link_drive_image_B.match(regex);
-                const fileIdB = logoteamB[1];
-                logoTeam2Img.src = `https://drive.google.com/thumbnail?id=${fileIdB}`;
-                logoTeam2Img.alt = '';
-                logoTeam2Div.appendChild(logoTeam2Img);
-                team2Div.appendChild(logoTeam2Div);
-
-                // Create score div for team 2
-                const score2Div = document.createElement('div');
-                score2Div.classList.add('score');
-                const score2P = document.createElement('p');
-                score2P.textContent = valueF[i + 1]; // Set score for team 2
-                score2Div.appendChild(score2P);
-                team2Div.appendChild(score2Div);
-                // Append team 2 div to matchup div
-                matchupDiv.appendChild(team2Div);
-                // Append matchup div to matchups container
-                matchupsContainer.appendChild(matchupDiv);
-                // Append matchups container to the container with class w0-l0
-                container.appendChild(matchupsContainer);
+                createMatchup(i, valueE, valueF, rowData, '.w1-l1',"C",16);
             }
             for (let i = 12; i < 16; i += 2) {
-                const container = document.querySelector('.w0-l2');
-                // Create matchups container
-                const matchupsContainer = document.createElement('div');
-                matchupsContainer.classList.add('matchups');
-                // Create matchup div
-                const matchupDiv = document.createElement('div');
-                matchupDiv.classList.add('matchup');
-
-                // Create first team div
-                const team1Div = document.createElement('div');
-                team1Div.classList.add('team');
-
-                // Create logo-team div for team 1
-                const logoTeam1Div = document.createElement('div');
-                logoTeam1Div.classList.add('logo-team');
-                const logoTeam1Img = document.createElement('img');
-                const regex = /\/d\/(.+?)\/view/;
-                let link_drive_image = valueE[i]; // Use even value cell
-                const logoteamA = link_drive_image.match(regex);
-                const fileIdA = logoteamA[1];
-                logoTeam1Img.src = `https://drive.google.com/thumbnail?id=${fileIdA}`;
-                logoTeam1Img.alt = '';
-                logoTeam1Div.appendChild(logoTeam1Img);
-                team1Div.appendChild(logoTeam1Div);
-
-                // Create score div for team 1
-                const score1Div = document.createElement('div');
-                score1Div.classList.add('score');
-                const score1P = document.createElement('p');
-                score1P.textContent = valueF[i]; // Set score for team 1
-                score1Div.appendChild(score1P);
-                team1Div.appendChild(score1Div);
-
-                // Append team 1 div to matchup div
-                matchupDiv.appendChild(team1Div);
-
-                // Create second team div
-                const team2Div = document.createElement('div');
-                team2Div.classList.add('team');
-
-                // Create logo-team div for team 2
-                const logoTeam2Div = document.createElement('div');
-                logoTeam2Div.classList.add('logo-team');
-                const logoTeam2Img = document.createElement('img');
-                const link_drive_image_B = valueE[i + 1];
-                const logoteamB = link_drive_image_B.match(regex);
-                const fileIdB = logoteamB[1];
-                logoTeam2Img.src = `https://drive.google.com/thumbnail?id=${fileIdB}`;
-                logoTeam2Img.alt = '';
-                logoTeam2Div.appendChild(logoTeam2Img);
-                team2Div.appendChild(logoTeam2Div);
-
-                // Create score div for team 2
-                const score2Div = document.createElement('div');
-                score2Div.classList.add('score');
-                const score2P = document.createElement('p');
-                score2P.textContent = valueF[i + 1]; // Set score for team 2
-                score2Div.appendChild(score2P);
-                team2Div.appendChild(score2Div);
-                // Append team 2 div to matchup div
-                matchupDiv.appendChild(team2Div);
-                // Append matchup div to matchups container
-                matchupsContainer.appendChild(matchupDiv);
-                // Append matchups container to the container with class w0-l0
-                container.appendChild(matchupsContainer);
+                createMatchup(i, valueE, valueF, rowData, '.w0-l2',"C",16);
             }
             for (let i = 0; i < 6; i += 2) {
-                const container = document.querySelector('.w2-l1');
-                // Create matchups container
-                const matchupsContainer = document.createElement('div');
-                matchupsContainer.classList.add('matchups');
-                // Create matchup div
-                const matchupDiv = document.createElement('div');
-                matchupDiv.classList.add('matchup');
-
-                // Create first team div
-                const team1Div = document.createElement('div');
-                team1Div.classList.add('team');
-
-                // Create logo-team div for team 1
-                const logoTeam1Div = document.createElement('div');
-                logoTeam1Div.classList.add('logo-team');
-                const logoTeam1Img = document.createElement('img');
-                const regex = /\/d\/(.+?)\/view/;
-                let link_drive_image = valueG[i]; // Use even value cell
-                const logoteamA = link_drive_image.match(regex);
-                const fileIdA = logoteamA[1];
-                logoTeam1Img.src = `https://drive.google.com/thumbnail?id=${fileIdA}`;
-                logoTeam1Img.alt = '';
-                logoTeam1Div.appendChild(logoTeam1Img);
-                team1Div.appendChild(logoTeam1Div);
-
-                // Create score div for team 1
-                const score1Div = document.createElement('div');
-                score1Div.classList.add('score');
-                const score1P = document.createElement('p');
-                score1P.textContent = valueH[i]; // Set score for team 1
-                score1Div.appendChild(score1P);
-                team1Div.appendChild(score1Div);
-
-                // Append team 1 div to matchup div
-                matchupDiv.appendChild(team1Div);
-
-                // Create second team div
-                const team2Div = document.createElement('div');
-                team2Div.classList.add('team');
-
-                // Create logo-team div for team 2
-                const logoTeam2Div = document.createElement('div');
-                logoTeam2Div.classList.add('logo-team');
-                const logoTeam2Img = document.createElement('img');
-                const link_drive_image_B = valueG[i + 1];
-                const logoteamB = link_drive_image_B.match(regex);
-                const fileIdB = logoteamB[1];
-                logoTeam2Img.src = `https://drive.google.com/thumbnail?id=${fileIdB}`;
-                logoTeam2Img.alt = '';
-                logoTeam2Div.appendChild(logoTeam2Img);
-                team2Div.appendChild(logoTeam2Div);
-
-                // Create score div for team 2
-                const score2Div = document.createElement('div');
-                score2Div.classList.add('score');
-                const score2P = document.createElement('p');
-                score2P.textContent = valueH[i + 1]; // Set score for team 2
-                score2Div.appendChild(score2P);
-                team2Div.appendChild(score2Div);
-                // Append team 2 div to matchup div
-                matchupDiv.appendChild(team2Div);
-                // Append matchup div to matchups container
-                matchupsContainer.appendChild(matchupDiv);
-                // Append matchups container to the container with class w0-l0
-                container.appendChild(matchupsContainer);
+                createMatchup(i, valueG, valueH, rowData, '.w2-l1',"D",24);
             }
             for (let i = 6; i < 12; i += 2) {
-                const container = document.querySelector('.w1-l2');
-                // Create matchups container
-                const matchupsContainer = document.createElement('div');
-                matchupsContainer.classList.add('matchups');
-                // Create matchup div
-                const matchupDiv = document.createElement('div');
-                matchupDiv.classList.add('matchup');
-
-                // Create first team div
-                const team1Div = document.createElement('div');
-                team1Div.classList.add('team');
-
-                // Create logo-team div for team 1
-                const logoTeam1Div = document.createElement('div');
-                logoTeam1Div.classList.add('logo-team');
-                const logoTeam1Img = document.createElement('img');
-                const regex = /\/d\/(.+?)\/view/;
-                let link_drive_image = valueG[i]; // Use even value cell
-                const logoteamA = link_drive_image.match(regex);
-                const fileIdA = logoteamA[1];
-                logoTeam1Img.src = `https://drive.google.com/thumbnail?id=${fileIdA}`;
-                logoTeam1Img.alt = '';
-                logoTeam1Div.appendChild(logoTeam1Img);
-                team1Div.appendChild(logoTeam1Div);
-
-                // Create score div for team 1
-                const score1Div = document.createElement('div');
-                score1Div.classList.add('score');
-                const score1P = document.createElement('p');
-                score1P.textContent = valueH[i]; // Set score for team 1
-                score1Div.appendChild(score1P);
-                team1Div.appendChild(score1Div);
-
-                // Append team 1 div to matchup div
-                matchupDiv.appendChild(team1Div);
-
-                // Create second team div
-                const team2Div = document.createElement('div');
-                team2Div.classList.add('team');
-
-                // Create logo-team div for team 2
-                const logoTeam2Div = document.createElement('div');
-                logoTeam2Div.classList.add('logo-team');
-                const logoTeam2Img = document.createElement('img');
-                const link_drive_image_B = valueG[i + 1];
-                const logoteamB = link_drive_image_B.match(regex);
-                const fileIdB = logoteamB[1];
-                logoTeam2Img.src = `https://drive.google.com/thumbnail?id=${fileIdB}`;
-                logoTeam2Img.alt = '';
-                logoTeam2Div.appendChild(logoTeam2Img);
-                team2Div.appendChild(logoTeam2Div);
-
-                // Create score div for team 2
-                const score2Div = document.createElement('div');
-                score2Div.classList.add('score');
-                const score2P = document.createElement('p');
-                score2P.textContent = valueH[i + 1]; // Set score for team 2
-                score2Div.appendChild(score2P);
-                team2Div.appendChild(score2Div);
-                // Append team 2 div to matchup div
-                matchupDiv.appendChild(team2Div);
-                // Append matchup div to matchups container
-                matchupsContainer.appendChild(matchupDiv);
-                // Append matchups container to the container with class w0-l0
-                container.appendChild(matchupsContainer);
+                createMatchup(i, valueG, valueH, rowData, '.w1-l2',"D",24);
             }
             for (let i = 0; i < 6; i += 2) {
-                const container = document.querySelector('.w2-l2');
-                // Create matchups container
-                const matchupsContainer = document.createElement('div');
-                matchupsContainer.classList.add('matchups');
-                // Create matchup div
-                const matchupDiv = document.createElement('div');
-                matchupDiv.classList.add('matchup');
-
-                // Create first team div
-                const team1Div = document.createElement('div');
-                team1Div.classList.add('team');
-
-                // Create logo-team div for team 1
-                const logoTeam1Div = document.createElement('div');
-                logoTeam1Div.classList.add('logo-team');
-                const logoTeam1Img = document.createElement('img');
-                const regex = /\/d\/(.+?)\/view/;
-                let link_drive_image = valueI[i]; // Use even value cell
-                const logoteamA = link_drive_image.match(regex);
-                const fileIdA = logoteamA[1];
-                logoTeam1Img.src = `https://drive.google.com/thumbnail?id=${fileIdA}`;
-                logoTeam1Img.alt = '';
-                logoTeam1Div.appendChild(logoTeam1Img);
-                team1Div.appendChild(logoTeam1Div);
-
-                // Create score div for team 1
-                const score1Div = document.createElement('div');
-                score1Div.classList.add('score');
-                const score1P = document.createElement('p');
-                score1P.textContent = valueJ[i]; // Set score for team 1
-                score1Div.appendChild(score1P);
-                team1Div.appendChild(score1Div);
-
-                // Append team 1 div to matchup div
-                matchupDiv.appendChild(team1Div);
-
-                // Create second team div
-                const team2Div = document.createElement('div');
-                team2Div.classList.add('team');
-
-                // Create logo-team div for team 2
-                const logoTeam2Div = document.createElement('div');
-                logoTeam2Div.classList.add('logo-team');
-                const logoTeam2Img = document.createElement('img');
-                const link_drive_image_B = valueI[i + 1];
-                const logoteamB = link_drive_image_B.match(regex);
-                const fileIdB = logoteamB[1];
-                logoTeam2Img.src = `https://drive.google.com/thumbnail?id=${fileIdB}`;
-                logoTeam2Img.alt = '';
-                logoTeam2Div.appendChild(logoTeam2Img);
-                team2Div.appendChild(logoTeam2Div);
-
-                // Create score div for team 2
-                const score2Div = document.createElement('div');
-                score2Div.classList.add('score');
-                const score2P = document.createElement('p');
-                score2P.textContent = valueJ[i + 1]; // Set score for team 2
-                score2Div.appendChild(score2P);
-                team2Div.appendChild(score2Div);
-                // Append team 2 div to matchup div
-                matchupDiv.appendChild(team2Div);
-                // Append matchup div to matchups container
-                matchupsContainer.appendChild(matchupDiv);
-                // Append matchups container to the container with class w0-l0
-                container.appendChild(matchupsContainer);
+                createMatchup(i, valueI, valueJ, rowData, '.w2-l2',"E",30);
             }
 
             // Create eliminate-teams container
@@ -785,14 +266,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 });
-function openModal(modalNum) {
-    var modal = document.getElementById("myModal" + modalNum);
+function openModal(modalNum,group) {
+    var modal = document.getElementById("myModal"+group + modalNum);
     modal.style.display = "block";
   }
   
   // Function to close the modal
-  function closeModal(modalNum) {
-    var modal = document.getElementById("myModal" + modalNum);
+  function closeModal(modalNum,group) {
+    var modal = document.getElementById("myModal"+group + modalNum);
     modal.style.display = "none";
   }
   
