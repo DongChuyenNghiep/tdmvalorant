@@ -264,9 +264,9 @@ document.addEventListener('DOMContentLoaded', function(){
         let th_thead_right9 = document.createElement('th');
         th_thead_right9.textContent = 'KAST (%)';
         let th_thead_right10 = document.createElement('th');
-        th_thead_right9.textContent = 'FK';
+        th_thead_right10.textContent = 'FK';
         let th_thead_right11 = document.createElement('th');
-        th_thead_right9.textContent = 'MK';
+        th_thead_right11.textContent = 'MK';
         let tbody_right = document.createElement('tbody');
         tbody_right.id = `team-right-A-${i + 1}`;
         let tr_table_right = document.createElement('tr');
