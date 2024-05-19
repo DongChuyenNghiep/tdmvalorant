@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     let SHEET_TITLE = 'Swiss Stage';
-    let SHEET_RANGE = 'A2:L50';
+    let SHEET_RANGE = 'A2:L52';
     let SHEET_ID = '1s2Lyk37v-hZcg7-_ag8S1Jq3uaeRR8u-oG0zviSc26E';
     let FULL_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${SHEET_TITLE}&range=${SHEET_RANGE}`;
 
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then((rep) => {
             let jsonData = JSON.parse(rep.substr(47).slice(0, -2));
             let rowData = jsonData.table.rows.slice(35, 44); // Slice to get only rows A37:A57
+            console.log(rowData); 
             let valueA = [];
             let valueB = [];
             let valueC = [];
@@ -76,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return teamDiv;
             }
             
-            function createModal(i, rowData,group,amountplus) {
+            function createModal(i, rowData,group,amountplus,col) {
                 const mymodelid = document.createElement('div');
                 mymodelid.id = "myModal"+group + i;
                 mymodelid.classList.add('modal');
@@ -96,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
                 const img_pick = document.createElement('img');
                 img_pick.classList.add("map_pick");
-                img_pick.src = "image/" + rowData[i / 2 + 1].c[0].v + ".jpg";
+                img_pick.src = "image/" + rowData[i / 2 + 1].c[1].v + ".jpg";
             
                 modal_content.appendChild(close_span);
                 modal_content.appendChild(map_pick_label);
@@ -106,11 +107,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 return mymodelid;
             }
             
-            function createMatchup(i, valueA, valueB, rowData, containerClass,group,amountplus) {
+            function createMatchup(i, valueA, valueB, rowData, containerClass,group,amountplus,col) {
                 const container = document.querySelector(containerClass);
                 const matchupsContainer = document.createElement('div');
                 matchupsContainer.classList.add('matchups');
-                matchupsContainer.appendChild(createModal(i, rowData,group,amountplus));
+                matchupsContainer.appendChild(createModal(i, rowData,group,amountplus,col));
             
                 const link_info_match = document.createElement('a');
                 link_info_match.classList.add('link-match-info');
@@ -139,31 +140,31 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             
             for (let i = 0; i < 16; i += 2) {
-                createMatchup(i, valueA, valueB, rowData, '.w0-l0',"A",0);
+                createMatchup(i, valueA, valueB, rowData, '.w0-l0',"A",0,0);
             }
             for (let i = 0; i < 8; i += 2) {
-                createMatchup(i, valueC, valueD, rowData, '.w1-l0',"B",8);
+                createMatchup(i, valueC, valueD, rowData, '.w1-l0',"B",8,1);
             }
             for (let i = 8; i < 16; i += 2) {
-                createMatchup(i, valueC, valueD, rowData, '.w0-l1',"B",8);
+                createMatchup(i, valueC, valueD, rowData, '.w0-l1',"B",8,2);
             }
             for (let i = 0; i < 4; i += 2) {
-                createMatchup(i, valueE, valueF, rowData, '.w2-l0',"C",16);
+                createMatchup(i, valueE, valueF, rowData, '.w2-l0',"C",16,3);
             }
             for (let i = 4; i < 12; i += 2) {
-                createMatchup(i, valueE, valueF, rowData, '.w1-l1',"C",16);
+                createMatchup(i, valueE, valueF, rowData, '.w1-l1',"C",16,4);
             }
             for (let i = 12; i < 16; i += 2) {
-                createMatchup(i, valueE, valueF, rowData, '.w0-l2',"C",16);
+                createMatchup(i, valueE, valueF, rowData, '.w0-l2',"C",16,5);
             }
             for (let i = 0; i < 6; i += 2) {
-                createMatchup(i, valueG, valueH, rowData, '.w2-l1',"D",24);
+                createMatchup(i, valueG, valueH, rowData, '.w2-l1',"D",24,6);
             }
             for (let i = 6; i < 12; i += 2) {
-                createMatchup(i, valueG, valueH, rowData, '.w1-l2',"D",24);
+                createMatchup(i, valueG, valueH, rowData, '.w1-l2',"D",24,7);
             }
             for (let i = 0; i < 6; i += 2) {
-                createMatchup(i, valueI, valueJ, rowData, '.w2-l2',"E",30);
+                createMatchup(i, valueI, valueJ, rowData, '.w2-l2',"E",30,8);
             }
 
             // Create eliminate-teams container
