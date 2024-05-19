@@ -210,9 +210,9 @@ document.addEventListener('DOMContentLoaded', function(){
         let th_thead_left9 = document.createElement('th');
         th_thead_left9.textContent = 'KAST (%)';
         let th_thead_left10 = document.createElement('th');
-        th_thead_right10.textContent = 'FK';
+        th_thead_left10.textContent = 'FK';
         let th_thead_left11 = document.createElement('th');
-        th_thead_right11.textContent = 'MK';
+        th_thead_left11.textContent = 'MK';
         let tbody_left = document.createElement('tbody');
         tbody_left.id = `team-left-A-${i + 1}`;
         let tr_table_left = document.createElement('tr');
