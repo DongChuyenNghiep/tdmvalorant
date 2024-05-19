@@ -200,13 +200,13 @@ document.addEventListener('DOMContentLoaded', function(){
         let th_thead_left4 = document.createElement('th');
         th_thead_left4.textContent = 'A';
         let th_thead_left5 = document.createElement('th');
-        th_thead_left5.textContent = 'KDA';
+        th_thead_left5.textContent = '+/-';
         let th_thead_left6 = document.createElement('th');
-        th_thead_left6.textContent = 'HS (%)';
+        th_thead_left6.textContent = 'K/D';
         let th_thead_left7 = document.createElement('th');
-        th_thead_left7.textContent = '+/-';
+        th_thead_left7.textContent = 'ADR';
         let th_thead_left8 = document.createElement('th');
-        th_thead_left8.textContent = 'ADR';
+        th_thead_left8.textContent = 'HS';
         let th_thead_left9 = document.createElement('th');
         th_thead_left9.textContent = 'KAST (%)';
         let th_thead_left10 = document.createElement('th');
