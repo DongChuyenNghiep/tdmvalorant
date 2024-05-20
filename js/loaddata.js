@@ -248,22 +248,22 @@ function processSwissStageData(data) {
                 createMatchup(i, valueC, valueD, rowData, '.w0-l1',"B",8,1);
             }
             for (let i = 0; i < 4; i += 2) {
-                createMatchup(i, valueE, valueF, rowData, '.w2-l0',"C",16,3);
+                createMatchup(i, valueE, valueF, rowData, '.w2-l0',"C",16,2);
             }
             for (let i = 4; i < 12; i += 2) {
-                createMatchup(i, valueE, valueF, rowData, '.w1-l1',"C",16,4);
+                createMatchup(i, valueE, valueF, rowData, '.w1-l1',"C",16,2);
             }
             for (let i = 12; i < 16; i += 2) {
-                createMatchup(i, valueE, valueF, rowData, '.w0-l2',"C",16,5);
+                createMatchup(i, valueE, valueF, rowData, '.w0-l2',"C",16,2);
             }
             for (let i = 0; i < 6; i += 2) {
-                createMatchup(i, valueG, valueH, rowData, '.w2-l1',"D",24,6);
+                createMatchup(i, valueG, valueH, rowData, '.w2-l1',"D",24,3);
             }
             for (let i = 6; i < 12; i += 2) {
-                createMatchup(i, valueG, valueH, rowData, '.w1-l2',"D",24,7);
+                createMatchup(i, valueG, valueH, rowData, '.w1-l2',"D",24,3);
             }
             for (let i = 0; i < 6; i += 2) {
-                createMatchup(i, valueI, valueJ, rowData, '.w2-l2',"E",30,8);
+                createMatchup(i, valueI, valueJ, rowData, '.w2-l2',"E",30,4);
             }
 
             // Create eliminate-teams container
