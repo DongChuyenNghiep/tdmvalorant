@@ -102,7 +102,6 @@ async function processStatVongBangData(data) {
 
 function processSwissStageData(data) {
     let rowData = data.table.rows.slice(35, 44);
-            console.log(rowData); 
             let valueA = [];
             let valueB = [];
             let valueC = [];
@@ -170,19 +169,19 @@ function processSwissStageData(data) {
                 return teamDiv;
             }
             
-            function createModal(i, rowData,group,amountplus,col) {
+            function createModal(i, rowData, group, amountplus, col) {
                 const mymodelid = document.createElement('div');
-                mymodelid.id = "myModal"+group + i;
+                mymodelid.id = "myModal" + group + i;
                 mymodelid.classList.add('modal');
             
                 const modal_content = document.createElement('div');
                 modal_content.classList.add('modal-content');
-                modal_content.id = 'matchid'+group + (i / 2 + 1 + amountplus);
+                modal_content.id = 'matchid' + group + (i / 2 + 1 + amountplus);
             
                 const close_span = document.createElement('span');
                 close_span.classList.add('close');
                 close_span.innerHTML = '&times;';
-                close_span.addEventListener('click', function () { closeModal(i,group); });
+                close_span.addEventListener('click', function () { closeModal(i, group); });
             
                 const map_pick_label = document.createElement('p');
                 map_pick_label.classList.add("map_pick_label");
@@ -190,7 +189,14 @@ function processSwissStageData(data) {
             
                 const img_pick = document.createElement('img');
                 img_pick.classList.add("map_pick");
-                img_pick.src = "image/" + rowData[i / 2 + 1].c[1].v + ".jpg";
+            
+                // Debugging output
+
+            
+                if (rowData[i / 2 + 1] && rowData[i / 2 + 1].c && rowData[i / 2 + 1].c[col]) {
+
+                    img_pick.src = "image/" + rowData[i / 2 + 1].c[col].v + ".jpg";
+                }
             
                 modal_content.appendChild(close_span);
                 modal_content.appendChild(map_pick_label);
@@ -239,7 +245,7 @@ function processSwissStageData(data) {
                 createMatchup(i, valueC, valueD, rowData, '.w1-l0',"B",8,1);
             }
             for (let i = 8; i < 16; i += 2) {
-                createMatchup(i, valueC, valueD, rowData, '.w0-l1',"B",8,2);
+                createMatchup(i, valueC, valueD, rowData, '.w0-l1',"B",8,1);
             }
             for (let i = 0; i < 4; i += 2) {
                 createMatchup(i, valueE, valueF, rowData, '.w2-l0',"C",16,3);
@@ -376,7 +382,6 @@ function processLienquanAData(data) {
         let group = getGroup(i);
         let dataBody = document.getElementById('matchid'+group+(i+1));
         let rowData = data.table.rows[i].c;
-        console.log('matchid'+group+(i+1));
         
         let link = document.createElement('div');
         link.classList.add('showWords1')
