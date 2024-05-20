@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-8943279217968567">
+    <title>Các team tham gia giải đấu</title>
+    <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/valorant.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="shortcut icon" type="image/x-icon" href="image/logo.png" />
+    <link rel="stylesheet" href="css/all_team.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top nav1">
+        <div class="container-fluid">
+            <a class="navbar-brand disabled" style="filter: brightness(100%);">
+                <img src="image/LogoDCN.png" alt="Bootstrap" height="70">
+            </a>
+            <button class="navbar-toggler color-expand" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav1" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                &#9776;
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav1" style="justify-content: center; align-items: center;">
+                <ul class="navbar-nav w-100 justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link focusable-link" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link focusable-link" aria-current="page" href="xep_bang.html">Các trận đấu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link focusable-link" href="all_team.html">Các đội đã đăng kí</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link focusable-link" href="bxh.html">Leaderboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link focusable-link" href="calendar.html">Lịch thi đấu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link focusable-link" href="luat_thi_dau.html">Luật</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="all-team">
+        <section class="info">
+            <h2>CÁC ĐỘI THAM DỰ GIẢI ĐẤU</h2>
+            
+        </section>
+       <script>
+        // Function to create the HTML structure
+function createBoxes() {
+    const totalRows = 3; // Define the number of rowboxes
+    const boxesPerRow = 4; // Define the number of box1 elements per rowbox
+    const allTeamContainer = document.querySelector('.all-team');
+
+
+    for (let j = 0; j < totalRows; j++) {
+        const container = document.createElement('div');
+        container.classList.add('rowbox');
+
+        for (let i = 0; i < boxesPerRow; i++) {
+             const innerContainer = document.createElement('div');
+            innerContainer.classList.add('box1');
+
+            const box = document.createElement('div');
+            box.classList.add('box');
+
+            const topDiv = document.createElement('div');
+            topDiv.classList.add('top1');
+
+            const imageLogo = document.createElement('div');
+            imageLogo.classList.add('image-logo');
+
+            const tablePlayer = document.createElement('div');
+            tablePlayer.classList.add('table-player');
+
+            const table = document.createElement('table');
+            table.classList.add('table-player');
+            table.id = `table-player${j * boxesPerRow + i}`;
+
+            const section = document.createElement('section');
+            section.classList.add('seed');
+            section.id = `team${j * boxesPerRow + i}`;
+
+            tablePlayer.appendChild(table);
+            topDiv.appendChild(imageLogo);
+            topDiv.appendChild(tablePlayer);
+            box.appendChild(topDiv);
+            innerContainer.appendChild(box);
+            innerContainer.appendChild(section);
+            container.appendChild(innerContainer);
+        }
+
+        allTeamContainer.appendChild(container);
+    }
+
+    // Append the generated structure to the .all-team element
+    document.body.appendChild(allTeamContainer);
+}
+
+// Call the function to generate the structure
+createBoxes();
+       </script>
+            
+        </div>
+        <script src="js/all-team.js"></script>
+        <script src="https://kit.fontawesome.com/940ae0f21f.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
