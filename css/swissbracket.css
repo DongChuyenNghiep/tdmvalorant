@@ -5,7 +5,7 @@
     white-space: nowrap;
     padding-right: 50px !important;
     padding-bottom: 50px;
-    
+    font-size: 0;
 }
 
 div.vong1 div.matchuppair .w0-l0,
@@ -97,7 +97,7 @@ div.vong5 div.matchuppair div.w2-l2 {
 }
 
 div.adva-eli .teams .eliminate {
-    margin-top: 140px;
+    margin-top: 96px;
 }
 
 .matchups .matchup,
@@ -287,7 +287,7 @@ div.vong2 .connection-line .connection2 .line {
 
 div.vong2 .connection-line .connection2 .merger {
     height: 590px;
-    margin-top: 5px;
+
 }
 
 div.vong3 .connection-line .connection1 .line {
@@ -307,7 +307,6 @@ div.vong3 .connection-line .connection2 .line {
 }
 
 div.vong3 .connection-line .connection3 .merger {
-    margin-top: 5px;
     height: 575px;
 }
 
@@ -316,11 +315,11 @@ div.vong3 .connection-line .connection3 .line {
 }
 
 div.vong3 .connection-line .connection4 .line {
-    height: 120px;
+    height: 150px;
     position: absolute;
     width: 950px;
-    border-right: rgb(248, 65, 65) 3px solid;
     border-bottom: rgb(228, 78, 78) 3px solid;
+    border-right: rgb(228, 78, 78) 3px solid;
 }
 
 div.vong4 .connection-line .connection1 .line {
