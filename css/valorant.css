@@ -4,10 +4,13 @@
 } 
 nav.nav1,nav.nav2 a{
     font-size: 16px !important;
-    font-family: 'Nunito';
 }
 *{
-    font-family: 'Nunito';
+    font-family: 'Nunito' !important;
+}
+.fc-toolbar h2,.fc-ltr .fc-basic-view .fc-day-top .fc-day-number{
+    color: white;
+    text-decoration: none;
 }
 .w3-container{
     padding: 0.1rem 8px !important;
