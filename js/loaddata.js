@@ -557,7 +557,7 @@ function createTable(className, tbodyIdPrefix, index) {
     let tr = document.createElement('tr');
     tr.classList.add('title');
 
-    let headers = ['','AVG Score', 'K', 'D', 'A', '+/-', 'K/D', 'ADR', 'HS', 'KAST (%)', 'FK', 'MK'];
+    let headers = ['','AVG Score', 'K', 'D', 'A', 'K/D', 'ADR', 'HS', 'KAST (%)', 'FK', 'MK'];
     headers.forEach((text, idx) => {
         let th = document.createElement('th');
         if (idx === 0) th.classList.add("first-col");
