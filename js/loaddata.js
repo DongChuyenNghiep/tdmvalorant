@@ -66,11 +66,11 @@ async function processStatVongBangData() {
         };
 
         const sheets = [
-            { title: 'Match1', range: 'A2:M81', targetLeftStart: 1, targetRightStart: 1 },
-            { title: 'Match2', range: 'A2:M81', targetLeftStart: 9, targetRightStart: 9 },
-            { title: 'Match3', range: 'A2:M161', targetLeftStart: 17, targetRightStart: 17 },
-            { title: 'Match4', range: 'A2:M201', targetLeftStart: 33, targetRightStart: 33 },
-            { title: 'Match5', range: 'A2:M191', targetLeftStart: 53, targetRightStart: 53 }
+            { title: 'Match1', range: 'A2:L81', targetLeftStart: 1, targetRightStart: 1 },
+            { title: 'Match2', range: 'A2:L81', targetLeftStart: 9, targetRightStart: 9 },
+            { title: 'Match3', range: 'A2:L161', targetLeftStart: 17, targetRightStart: 17 },
+            { title: 'Match4', range: 'A2:L201', targetLeftStart: 33, targetRightStart: 33 },
+            { title: 'Match5', range: 'A2:L191', targetLeftStart: 53, targetRightStart: 53 }
         ];
 
         const SHEET_ID = '1s2Lyk37v-hZcg7-_ag8S1Jq3uaeRR8u-oG0zviSc26E';
