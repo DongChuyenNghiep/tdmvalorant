@@ -54,6 +54,7 @@ div.box{
 div.box img{
   display: block;
   height: 304.6px;
+  aspect-ratio: 1/1;
 }
 
 section.seed{
