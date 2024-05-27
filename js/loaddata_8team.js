@@ -66,31 +66,31 @@ async function processStatVongBangData() {
         };
 
         const sheets = [
-            { title: 'Match1', range: 'A2:L121', targetLeftStart: 1, targetRightStart: 1 },
-            { title: 'Match2', range: 'A2:L121', targetLeftStart: 13, targetRightStart: 13 },
-            { title: 'Match3', range: 'A2:L61', targetLeftStart: 25, targetRightStart: 25 },
+            { title: 'Match1', range: 'A2:L121', targetLeftStart: 1, targetRightStart: 1, rowCount: 12 },
+            { title: 'Match2', range: 'A2:L121', targetLeftStart: 13, targetRightStart: 13, rowCount: 12 },
+            { title: 'Match3', range: 'A2:L61', targetLeftStart: 25, targetRightStart: 25, rowCount: 6 },
         ];
-
+        
         const SHEET_ID = '1s2Lyk37v-hZcg7-_ag8S1Jq3uaeRR8u-oG0zviSc26E';
         const fetchPromises = sheets.map(async (sheet) => {
             const fullURL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${sheet.title}&range=${sheet.range}`;
-
+        
             const res = await fetch(fullURL);
             if (!res.ok) {
                 throw new Error(`Failed to fetch ${sheet.title} data: ${res.status} ${res.statusText}`);
             }
-
+        
             const rep = await res.text();
             const data = JSON.parse(rep.substr(47).slice(0, -2));
             return { sheet, data };
         });
-
+        
         const sheetsData = await Promise.all(fetchPromises);
-
+        
         const processSheetPromises = sheetsData.flatMap(({ sheet, data }) => {
             const leftPromises = [];
             const rightPromises = [];
-            const rowCount = 30; // 300 rows divided by 10 gives 30 sets of 10
+            const rowCount = sheet.rowCount; // Use the rowCount from the sheet object
             for (let i = 0; i < rowCount; i++) {
                 const targetLeftID = `team-left-A-${sheet.targetLeftStart + i}`;
                 const targetRightID = `team-right-A-${sheet.targetRightStart + i}`;
@@ -99,8 +99,9 @@ async function processStatVongBangData() {
             }
             return [...leftPromises, ...rightPromises];
         });
-
+        
         await Promise.all(processSheetPromises);
+        
     } catch (error) {
         console.error('Error occurred:', error);
     }
