@@ -75,7 +75,7 @@ button.filter-table {
     position: fixed;
     width: 100%;
     z-index: 2;
-    padding: 20px 0;
+    padding: 17px 0;
 }
 .disabled{
     color:white !important;
@@ -190,7 +190,7 @@ div.table_rank_A {
     justify-content: center;
 }
 .wordBox1 {
-
+    display: none;
     border: 1px solid #ccc;  
     width: 100%;
     transition: max-height 0.3s ease-in-out;
@@ -314,15 +314,12 @@ a.w3-bar-item {
     border: 1px solid #ccc;
     width: 100%;
     margin: 10px auto 70px;
-    border-radius: 10px;
     justify-content: space-between;
 
 }
 .row1{
     display: flex;
     padding: 5px;
-    border-top-left-radius: 9px ;
-    border-top-right-radius: 9px ;
 }
 
 .loser-darker {
@@ -384,7 +381,7 @@ span.gach {
     margin: 0 5px;
 }
 .team-left td:first-child,.team-left th:first-child, .team-right td:first-child,.team-right th:first-child,.bxh table#leaderboard td:nth-child(1){
-    padding: 10px;
+    padding: 7px;
     text-align: center;
     position: relative;
 }
