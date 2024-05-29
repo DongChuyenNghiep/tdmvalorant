@@ -18,8 +18,12 @@ div.all-team{
 table.table-player{
     width: 100%;
 }
+div.all-team tr td:first-child{
+    width: 80px;
+}
 div.all-team img.rank-icon{
     height: 50px;
+    
     padding: 2px;
     text-align: right;
     margin: 0 auto;
