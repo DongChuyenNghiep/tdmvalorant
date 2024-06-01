@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const sheets = [
         { title: 'Match', range: 'A2:360', processData: processStatVongBangData },
         { title: 'Swiss Stage', range: 'A2:L52', processData: processSwissStageData },
-        { title: 'Sheet3', range: 'A1:U37', processData: processLienquanAData }
+        { title: 'Sheet3', range: 'A1:U30', processData: processLienquanAData }
     ];
 
     const fetchSheetData = async (title, range) => {
