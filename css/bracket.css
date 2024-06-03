@@ -11,7 +11,7 @@ h2{
 }
 
 body{
-  background-color: #313030 !important;
+  background-color: #08142c !important;
   font-family: 'Nunito' !important;
 }
 .bracket img{
@@ -29,6 +29,22 @@ body{
 }
 div.cac-vong{
   padding: 120px 0px 0 50px;
+}
+.back {
+  margin-top: 100px;
+  margin-left: 60px;
+}
+.back a{
+  font-size: 20px !important;
+  color: white;
+  font-weight: 600;
+}
+
+.back a:hover{
+  color: rgb(253, 188, 67);
+  
+  text-decoration: underline;
+  transition: 0.3s ease ;
 }
 div.cac-vong li{
   list-style: none;
@@ -60,7 +76,7 @@ div.cac-vong a:hover::after{
   position: absolute;
   white-space: nowrap;
   font-size: 0;
-  padding: 5px 60px 60px 60px;
+  padding: 5px 60px 10px 60px;
   overflow-x:none;
 }
 
@@ -175,7 +191,7 @@ div.cac-vong a:hover::after{
 .bracket .round .winners>div.connector .line,
 .bracket .round .winners>div.connector .merger {
   box-sizing: border-box;
-  width: 64px;
+  width: 40px;
   display: inline-block;
   vertical-align: top;
 }
@@ -244,16 +260,14 @@ div.cac-vong a:hover::after{
 
 .bracket .round.semifinals .winners .connector .line {
   height: 147px;
-  width: 150px;
+  width: 70px;
 }
 
 .bracket .round.finals .winners .connector .merger {
   height: 48px;
 }
 
-.bracket .round.finals .winners .connector .line {
-  height: 24px;
-}
+
 .bracket .round.finals .winners .connector .merger{
   top:300px;
   height: 650px;
@@ -265,9 +279,9 @@ div.cac-vong a:hover::after{
   
 }
 .bracket .round.finals .winners .connector .line{
-  height: 573px;
+  height: 550px;
 }
 .grand-final .winners .matchup  {
-  margin-top: -270px;
-  margin-left: 120px;
+  margin-top: -295px;
+  margin-left: 90px;
 }
