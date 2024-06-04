@@ -197,7 +197,7 @@ div.cac-vong a:hover::after{
 }
 
 .bracket .round .winners>div.connector .line {
-  border-bottom: thin solid white;
+  border-bottom: solid white;
   height: 64px;
 }
 
@@ -216,15 +216,18 @@ div.cac-vong a:hover::after{
   border: 0 solid;
   border-color: white;
 }
-
+.bracket .round .winners > div.connector .merger::after{
+  border-right: solid white;
+  border-bottom: solid white;
+}
 .bracket .round .winners>div.connector .merger:before {
-  border-right-width: thin;
-  border-top-width: thin;
+  border-right: solid white;
+  border-top: solid white;
 }
 
 .bracket .round .winners>div.connector .merger:after {
-  border-right-width: thin;
-  border-bottom-width: thin;
+  border-right-width: solid white;
+  border-bottom-width: solid white;
 }
 
 .bracket .round.round-16 .winners:not(:last-child) {
@@ -283,5 +286,5 @@ div.cac-vong a:hover::after{
 }
 .grand-final .winners .matchup  {
   margin-top: -295px;
-  margin-left: 90px;
+  margin-left: 70px;
 }

@@ -207,7 +207,8 @@ h2{
 
 .loser-bracket .round.loser1 .winners .connector .line {
   height: 0px;
-  width: 100px;
+  width: 120px;
+  border-top: 2px solid white;
 }
 
 
