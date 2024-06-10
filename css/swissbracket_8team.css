@@ -25,7 +25,9 @@
     text-decoration: underline;
     transition: 0.3s ease ;
 }
-
+.map_pick_all{
+    display: flex;
+}
 div.vong1 div.matchuppair .w0-l0,
 div.vong2 div.matchuppair .w1-l0,
 div.vong2 div.matchuppair .w0-l1,

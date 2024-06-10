@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const sheets = [
         { title: 'Match', range: 'A2:360', processData: processStatVongBangData },
-        { title: 'Swiss Stage', range: 'A2:L52', processData: processSwissStageData },
+        { title: 'Swiss Stage', range: 'A2:L53', processData: processSwissStageData },
         { title: 'Sheet3', range: 'A1:U37', processData: processLienquanAData }
     ];
 
@@ -110,7 +110,7 @@ async function processStatVongBangData() {
 
 
 function processSwissStageData(data) {
-    let rowData = data.table.rows.slice(35, 44);
+    let rowData = data.table.rows.slice(35, 53);
     let valueA = [];
     let valueB = [];
     let valueC = [];
@@ -187,21 +187,35 @@ function processSwissStageData(data) {
         const img_pick = document.createElement('img');
         img_pick.classList.add("map_pick");
 
-        // Debugging output
-
-
-        if (rowData[i / 2 + 1] && rowData[i / 2 + 1].c && rowData[i / 2 + 1].c[col]) {
-
-            img_pick.src = "image/" + rowData[i / 2 + 1].c[col].v + ".jpg";
+        const img_pick1 = document.createElement('img');
+        img_pick1.classList.add("map_pick");
+        const img_pick2 = document.createElement('img');
+        img_pick2.classList.add("map_pick");
+        const img_pick3 = document.createElement('img');
+        img_pick3.classList.add("map_pick");
+        const div_map = document.createElement('div');
+        div_map.classList.add("map_pick_all");
+        // Adjust the indexing logic to avoid overlaps
+        const baseIndex = (i / 2) * 3 + 1;
+    
+        if (rowData[baseIndex + 2] && rowData[baseIndex + 2].c && rowData[baseIndex + 2].c[col]) {
+            img_pick1.src = rowData[baseIndex]?.c[col]?.v ? "image/" + rowData[baseIndex].c[col].v + ".jpg" : "image/TBD.jpg";
+            img_pick2.src = rowData[baseIndex + 1]?.c[col]?.v ? "image/" + rowData[baseIndex + 1].c[col].v + ".jpg" : "image/TBD.jpg";
+            img_pick3.src = rowData[baseIndex + 2]?.c[col]?.v ? "image/" + rowData[baseIndex + 2].c[col].v + ".jpg" : "image/TBD.jpg";
+        
         }
-
+    
         modal_content.appendChild(close_span);
         modal_content.appendChild(map_pick_label);
-        modal_content.appendChild(img_pick);
+        div_map.appendChild(img_pick1);
+        div_map.appendChild(img_pick2);
+        div_map.appendChild(img_pick3);
+        modal_content.appendChild(div_map);
         mymodelid.appendChild(modal_content);
-
+    
         return mymodelid;
     }
+    
 
     function createMatchup(i, valueA, valueB, rowData, containerClass, group, amountplus, col) {
         const container = document.querySelector(containerClass);
@@ -224,7 +238,7 @@ function processSwissStageData(data) {
         const team1Div = createTeamDiv(logoSrcA, valueB[i]);
         matchupDiv.appendChild(team1Div);
 
-        let link_drive_image_B = valueA[i + 1];
+        let link_drive_image_B = valueA[i+1];
         const fileIdB = link_drive_image_B.match(regex)[1];
         const logoSrcB = `https://drive.google.com/thumbnail?id=${fileIdB}`;
         const team2Div = createTeamDiv(logoSrcB, valueB[i + 1]);
@@ -356,7 +370,15 @@ function processLienquanAData(data) {
         let group = getGroup(i);
         let dataBody = document.getElementById('matchid' + group + (i + 1));
         console.log(i)
-        let rowData = data.table.rows[i].c;
+        let k = 0;
+        let rowData;
+        if (i == 0){
+            rowData = data.table.rows[i].c;
+        }
+        else{
+            k = i + (2 * i)
+            rowData = data.table.rows[k].c;
+        }
         let matchId = group + (i + 1);
         let link = document.createElement('div');
         link.classList.add('showWords1')
@@ -614,7 +636,7 @@ function createStatDiv(kdaText) {
         ];
         if (specifiedMatches.includes(matchId)) {
             for (let j = 0; j < 2; j++) {
-            const rowData1 = data.table.rows[j+1+i].c;
+            const rowData1 = data.table.rows[j+1+k].c;
             let rowDiv = document.createElement('div');
         rowDiv.classList.add('row2');
         // Create a container div for each row
@@ -629,7 +651,7 @@ function createStatDiv(kdaText) {
         let img1 = document.createElement('img');
         img1.classList.add('team-logo');
         const regex = /\/d\/(.+?)\/view/;
-        img1.src = `https://drive.google.com/thumbnail?id=${data.table.rows[j+1+i].c[0].v.match(regex)[1]}`; // Set the image source from the data
+        img1.src = `https://drive.google.com/thumbnail?id=${data.table.rows[j+1+k].c[0].v.match(regex)[1]}`; // Set the image source from the data
         img1.alt = rowData1[1].v + ' Logo'; // Set the alt text based on the team name
         teamDiv1.appendChild(img1);
         let span1 = document.createElement('span');
