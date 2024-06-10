@@ -369,16 +369,17 @@ function processLienquanAData(data) {
     for (let i = 0; i < 10; i++) {
         let group = getGroup(i);
         let dataBody = document.getElementById('matchid' + group + (i + 1));
-        console.log(i)
+        
         let k = 0;
         let rowData;
-        if (i == 0){
+        if (i == 0 || i == 1|| i == 2|| i == 3 ){
             rowData = data.table.rows[i].c;
         }
         else{
-            k = i + (2 * i)
+            k = i + (2 * i) - 8
             rowData = data.table.rows[k].c;
         }
+        console.log(k,i)
         let matchId = group + (i + 1);
         let link = document.createElement('div');
         link.classList.add('showWords1')
@@ -563,16 +564,13 @@ function createTable(className, tbodyIdPrefix, index) {
 
     let tbody = document.createElement('tbody');
     const specialMatchIds = {
-        1: ['matchidA1'],
-        3: ['matchidA2'],
-        5: ['matchidA3'],
-        7: ['matchidA4'],
-        9: ['matchidB5'],
-        11: ['matchidB6'],
-        13: ['matchidB7'],
-        15: ['matchidB8'],
-        17: ['matchidC9'],
-        19: ['matchidC10'],
+        1: ['matchidA1','matchidA2','matchidA3','matchidA4'],
+        3: ['matchidB5'],
+        5: ['matchidB6'],
+        7: ['matchidB7'],
+        9: ['matchidB8'],
+        11: ['matchidC9'],
+        13: ['matchidC10']
     };
     
     const idToIndexIncrement = (id) => {
@@ -632,7 +630,7 @@ function createStatDiv(kdaText) {
         // Append the row div to the dataBody
         dataBody.appendChild(link);
         const specifiedMatches = [
-            'A1', 'A2','A3','A4','B5','B6','B7','B8','C9','C10'
+            'B5','B6','B7','B8','C9','C10'
         ];
         if (specifiedMatches.includes(matchId)) {
             for (let j = 0; j < 2; j++) {
