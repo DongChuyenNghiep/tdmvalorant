@@ -176,7 +176,7 @@ div.connection {
 .matchups .matchup .team .logo-team,
 .advance .advance-teams .all-teams-win .team .logo-team,
 .eliminate .eliminate-teams .all-teams-eli .team .logo-team {
-    background-color: #EEEEEE;
+    background-color: white;
     width: 170px;
     justify-content: center;
     align-items: center;
