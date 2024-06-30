@@ -66,9 +66,9 @@ async function processStatVongBangData() {
         };
 
         const sheets = [
-            { title: 'Match1', range: 'A2:L121', targetLeftStart: 1, targetRightStart: 1, rowCount: 12 },
-            { title: 'Match2', range: 'A2:L121', targetLeftStart: 13, targetRightStart: 13, rowCount: 12 },
-            { title: 'Match3', range: 'A2:L61', targetLeftStart: 25, targetRightStart: 25, rowCount: 6 },
+            { title: 'Match1', range: 'A2:L121', targetLeftStart: 1, targetRightStart: 1, rowCount: 4 },
+            { title: 'Match2', range: 'A2:L121', targetLeftStart: 5, targetRightStart: 5, rowCount: 12 },
+            { title: 'Match3', range: 'A2:L61', targetLeftStart: 17, targetRightStart: 17, rowCount: 6 },
         ];
         
         const SHEET_ID = '1s2Lyk37v-hZcg7-_ag8S1Jq3uaeRR8u-oG0zviSc26E';
@@ -564,8 +564,7 @@ function createTable(className, tbodyIdPrefix, index) {
 
     let tbody = document.createElement('tbody');
     const specialMatchIds = {
-        1: ['matchidA1','matchidA2','matchidA3','matchidA4'],
-        3: ['matchidB5'],
+        1: ['matchidA1','matchidA2','matchidA3','matchidA4','matchidB5'],
         5: ['matchidB6'],
         7: ['matchidB7'],
         9: ['matchidB8'],
