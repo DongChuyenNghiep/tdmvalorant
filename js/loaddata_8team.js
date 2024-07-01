@@ -565,11 +565,11 @@ function createTable(className, tbodyIdPrefix, index) {
     let tbody = document.createElement('tbody');
     const specialMatchIds = {
         1: ['matchidA1','matchidA2','matchidA3','matchidA4','matchidB5'],
-        5: ['matchidB6'],
-        7: ['matchidB7'],
-        9: ['matchidB8'],
-        11: ['matchidC9'],
-        13: ['matchidC10']
+        3: ['matchidB6'],
+        5: ['matchidB7'],
+        7: ['matchidB8'],
+        9: ['matchidC9'],
+        11: ['matchidC10']
     };
     
     const idToIndexIncrement = (id) => {
